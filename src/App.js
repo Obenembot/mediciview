@@ -160,7 +160,7 @@ const App = () => {
                         required
                     />
                 )}
-                <button class="create" type="submit" disabled={loading}>
+                <button class={isPasswordUpdate ? 'update-pass' : 'create'} type="submit" disabled={loading}>
                     {selectedUser ? isPasswordUpdate ? 'Update Password' : 'Update User' : 'Create User'}
                 </button>
             </form>
