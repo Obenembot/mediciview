@@ -96,7 +96,8 @@ const App = () => {
         try {
             setLoading(true);
             setPasswordUpdate(true)
-            setSelectedUser({email: user.email});
+            delete user.password;
+            setSelectedUser(user);
             setFormData(user);
             await fetchUsers();
         } catch (error) {
@@ -111,22 +112,26 @@ const App = () => {
             <h1>Medici User Management System</h1>
             {message && <p className={message.type}>{message.text}</p>}
             <form onSubmit={handleCreateOrUpdateUser}>
-                <input hidden={isPasswordUpdate}
-                       type="text"
-                       name="firstName"
-                       placeholder="first Name"
-                       value={formData.firstName}
-                       onChange={handleInputChange}
-                       required
-                />
-                <input hidden={isPasswordUpdate}
-                       type="text"
-                       name="surname"
-                       placeholder="Surname"
-                       value={formData.surname}
-                       onChange={handleInputChange}
-                       required
-                />
+
+                {!isPasswordUpdate && (
+                    <input
+                        type="text"
+                        name="firstName"
+                        placeholder="first Name"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        required
+                    />)}
+                {!isPasswordUpdate && (
+                    <input
+                        type="text"
+                        name="surname"
+                        placeholder="Surname"
+                        value={formData.surname}
+                        onChange={handleInputChange}
+                        required
+                    />
+                )}
                 <input
                     type="email"
                     name="email"
@@ -135,22 +140,26 @@ const App = () => {
                     onChange={handleInputChange}
                     required
                 />
-                <input disabled={selectedUser && !isPasswordUpdate}
-                       type="password"
-                       name="password"
-                       placeholder="Password"
-                       value={formData.password}
-                       onChange={handleInputChange}
-                       required
-                />
-                <input hidden={!isPasswordUpdate}
-                       type="password"
-                       name="newPassword"
-                       placeholder="New Password"
-                       value={formData.newPassword}
-                       onChange={handleInputChange}
-                       required={isPasswordUpdate}
-                />
+                {(!selectedUser || isPasswordUpdate) && (
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder={isPasswordUpdate ? 'Old Password' : 'Password'}
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        required
+                    />
+                )}
+                {isPasswordUpdate && (
+                    <input
+                        type="password"
+                        name="newPassword"
+                        placeholder="New Password"
+                        value={formData.newPassword}
+                        onChange={handleInputChange}
+                        required
+                    />
+                )}
                 <button class="create" type="submit" disabled={loading}>
                     {selectedUser ? isPasswordUpdate ? 'Update Password' : 'Update User' : 'Create User'}
                 </button>
@@ -181,7 +190,8 @@ const App = () => {
                         <td>
                             <button class="update" onClick={() => setUserHandle(user)}>Update</button>
 
-                            <button class="update-pass" onClick={() => setUserPasswordHandle(user)}>Update Password</button>
+                            <button class="update-pass" onClick={() => setUserPasswordHandle(user)}>Update Password
+                            </button>
 
                             <button class="delete" onClick={() => handleDeleteUser(user.email)}>Delete</button>
                         </td>
