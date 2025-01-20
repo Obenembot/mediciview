@@ -75,6 +75,9 @@ const App = () => {
             setMessage({type: 'error', text: error?.response?.data?.error});
         } finally {
             setLoading(false);
+            setFormData({id: null, firstName: '', surname: '', email: '', password: '', newPassword: ''});
+            setSelectedUser(null);
+            setPasswordUpdate(false);
         }
     };
 
