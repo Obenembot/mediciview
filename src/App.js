@@ -47,6 +47,7 @@ const App = () => {
             if (isPasswordUpdate) {
                 await axios.put(`${apiBaseUrl}/${selectedUser.email}/${formData.password}/${formData.newPassword}`, {});
                 setMessage({type: 'success', text: 'User password updated successfully!'});
+                setPasswordUpdate(false);
             } else if (selectedUser) {
                 await axios.put(`${apiBaseUrl}/`, formData);
                 setMessage({type: 'success', text: 'User updated successfully!'});
@@ -61,7 +62,6 @@ const App = () => {
             setMessage({type: 'error', text: error?.response?.data?.error});
         } finally {
             setLoading(false);
-            setPasswordUpdate(false);
         }
     };
 
