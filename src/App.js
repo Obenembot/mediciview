@@ -117,12 +117,12 @@ const App = () => {
             <Router>
                 <nav>
                     <ul>
-                        <li><Link to="/user">User for testing Nav/Links</Link></li>
+                        {/*<li><Link to="/user">User for testing Nav/Links</Link></li>*/}
                     </ul>
                 </nav>
 
                 <Routes>
-                    <Route path="/user" element={<User />} />
+                    {/*<Route path="/user" element={<User />} />*/}
                 </Routes>
             </Router>
             <h1>Medici User Management System</h1>
