@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import User from './pages/User'
 
 const App = () => {
     const [users, setUsers] = useState([]);
@@ -112,6 +114,17 @@ const App = () => {
 
     return (
         <div className="App">
+            <Router>
+                <nav>
+                    <ul>
+                        <li><Link to="/user">User for testing Nav/Links</Link></li>
+                    </ul>
+                </nav>
+
+                <Routes>
+                    <Route path="/user" element={<User />} />
+                </Routes>
+            </Router>
             <h1>Medici User Management System</h1>
             {message && <p className={message.type}>{message.text}</p>}
             <form onSubmit={handleCreateOrUpdateUser}>
